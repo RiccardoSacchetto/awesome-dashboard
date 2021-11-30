@@ -1,21 +1,113 @@
-<html>
-    <head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="index.css">
-        <title>Personal Dashboard</title>
-    </head>
-    <body>
-        <main>    
-            <div class="top">
-                <div id="crypto">
-                    <div id="crypto-top"></div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Dashboard</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"> -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;0,700;1,300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<img id="background-image" src="#">
+    <main class="main-grid" id="main-body">
+        <div id="top-left">
+            <h3 id="news-title">News</h3>
+            <div id="news-div">
+                <div id="news-header">
+                    <div id="news-header-flex">
+                        <div id="btn-news-state-container">
+                            <button class="btn btn-options-list" id="btn-news-state">it</button>
+                        </div>
+                        <div id="news-state-list">
+                            <ul class="ul-options-list">
+                                <li><button class="btn btn-options-element" onclick="changeNewsState(1)">it</button></li>
+                                <li><button class="btn btn-options-element" onclick="changeNewsState(2)">fr</button></li>
+                                <li><button class="btn btn-options-element" onclick="changeNewsState(3)">de</button></li>
+                                <li><button class="btn btn-options-element" onclick="changeNewsState(4)">pt</button></li>
+                                <li><button class="btn btn-options-element" onclick="changeNewsState(5)">gb</button></li>
+                                <li><button class="btn btn-options-element" onclick="changeNewsState(6)">us</button></li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-options-list" id="btn-news-category">Category</button>
+                        <div id="news-category-list">
+                            <ul class="ul-options-list">
+                                <li><button class="btn btn-options-element" onclick="changeNewsCategory(3)">general</button></li>
+                                <li><button class="btn btn-options-element" onclick="changeNewsCategory(6)">sports</button></li>
+                                <li><button class="btn btn-options-element" onclick="changeNewsCategory(7)">technology</button></li>
+                                <li><button class="btn btn-options-element" onclick="changeNewsCategory(4)">health</button></li>
+                                <li><button class="btn btn-options-element" onclick="changeNewsCategory(2)">entertainment</button></li>
+                                <li><button class="btn btn-options-element" onclick="changeNewsCategory(1)">business</button></li>
+                                <li><button class="btn btn-options-element" onclick="changeNewsCategory(5)">science</button></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div id="weather"></div>
+                <div id="news-container"></div>
             </div>
-            
-            <h1 id="time" class="time"></h1>
-            <p id="author"></p>
-        </main>
-        <script src="index.js"></script>
-    </body>
+            <h3 id="crypto-title">Crypto</h3>
+            <div id="crypto-div">
+                <div class="bar-container" id="crypto-header">
+                    <input type="text" class="input-bar" id="input-crypto-id" placeholder="Crypto">
+                    <button class="btn btn-bar-enter" id="btn-change-crypto">></button>
+                </div>
+                <div id="crypto-container"></div>
+            </div>
+            <div id="switch-btn-NC">
+                <button class="btn btn-options-list" id="btn-crypto-to-news">News</button>
+                <button class="btn btn-options-list" id="btn-news-to-crypto">Crypto</button>
+            </div>
+        </div>
+
+        <div id="top-right">
+            <div>
+                <h3 id="weather-title">Weather</h3>
+
+            </div>
+            <div id="weather-container">
+                <div id="weather-container-conditions"></div>
+                <div id="weather-lang-list">
+                    <button class="btn btn-options-list" id="btn-lang-weather">IT</button>
+                    <ul class="ul-options-list" id="ul-weather-lang">
+                        <li><button class="btn btn-options-element" onclick="changeWeatherLang(1)">IT</button></li>
+                        <li><button class="btn btn-options-element" onclick="changeWeatherLang(2)">EN</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="center">
+            <h1 id="time-container"></h1>
+            <div id="quote-container">
+                <p id="quote-text"></p>
+                <p id="quote-author"></p>
+            </div>
+        </div>
+        <div id="bottom">
+            <div class="bar-container">
+                <input type="text" class="input-bar" id="input-search-image" placeholder="Change image topic">
+                <button class="btn btn-bar-enter" id="button-search-image">></button>
+            </div>
+            <div class="container-button-toggle" id="button-dark-light-mode-container">
+                <button id="button-dark-light-mode"></button>
+            </div>
+        </div>
+        <div id="bottom-left"></div>
+
+        <div id="bottom-right">
+            <h3 id="to-do-title">To do</h3>
+            <div id="to-do-container">
+                <ul id="to-do-collection"></ul>
+                <div class="bar-container" id="to-do-container-input">
+                    <input type="text" class="input-bar" id="to-do-input">
+                </div>
+                <button class="btn" id="btn-to-do-add">+</button>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
 </html>

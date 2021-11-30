@@ -1,0 +1,802 @@
+.disNone {
+  display: none;
+}
+:root {
+  --primaryCol: rgba(240,240,240,1);
+  --primaryColOp: rgba(240,240,240,0.8);
+  --primaryColOpPlus : rgba(240,240,240,0.4);
+  --secondaryCol: rgba(7,7,7,1);
+  --secondaryColOp: rgba(7,7,7,0.8);
+  --textShadow: 1px 1px 0.02em rgba(7,7,7,0.5);
+  --font: 'Montserrat', sans-serif;
+}
+
+/* ===============
+General
+=============== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--primaryCol);
+  font-family: var(--font);
+  text-shadow: var(--textShadow); /* a lot of doubts about it */
+  font-weight: 500;
+  letter-spacing: 1px;
+  position: relative;
+  display: flex;
+}
+
+#background-image {
+  align-self: center;
+  justify-self: center;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+   }
+}
+
+#top-left,
+#top-right,
+#center,
+#bottom-left,
+#bottom,
+#bottom-right,
+#background-image {
+  animation: fadeInAnimation linear 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+} 
+
+#main-body { /* Per il toggle dark and white mode */
+  transition-property: all;
+  transition-duration: 500ms;
+}
+
+/* ===============
+Tipography
+=============== */
+
+/* General */
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+input {
+  font-family: var(--font);
+}
+
+/* Center: clock and quote */
+
+#time-container {
+  font-size: 9.5rem;
+  font-weight: 700;
+}
+
+#quote-text {
+  font-style: italic;
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-align: start;
+}
+
+#quote-author {
+  text-align: end;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* Author img */
+
+#author-img {
+  font-size: 1.125rem;
+  font-weight: 300;
+  text-transform: capitalize;
+}
+
+#author-img-by,
+#author-topic {
+  font-size: 1rem;
+  font-weight: 300;
+  opacity: 0.8;
+  text-transform: capitalize;
+}
+
+#author-unsplash {
+  font-size: 0.85rem;
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+/* Search bar */
+
+.input-bar,
+.btn-bar-enter {
+  font-weight: 300;
+  font-size: 1.25rem;
+  letter-spacing: 1px;
+}
+
+/* To do list */
+
+.to-do-text{
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+#to-do-input {
+  font-size: 1rem;
+}
+
+/* Weather */
+
+#weather-city,
+#weather-now {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+#weather-now::first-letter {
+  text-transform: uppercase;
+}
+
+#weather-temp {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+
+/* News */
+
+.news-headline,
+.news-headline a {
+  text-decoration: none;
+  font-family: var(--font);
+  font-weight: 300;
+  font-size: 1rem;
+  color: var(--primaryCol)
+}
+
+.news-author {
+  font-size: 0.9rem;
+  font-weight: 300;
+  font-style: italic;
+  text-align: end;
+}
+
+#btn-news-category,
+#news-category-list .btn-options-element {
+  text-transform: capitalize;
+}
+
+#btn-news-state,
+#news-state-list .btn-options-element {
+  text-transform: uppercase;
+}
+
+/* Crypto */
+
+#input-crypto-id,
+#btn-change-crypto {
+  font-size: 1rem;
+}
+
+#crypto-name {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.crypto-values {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* ===============
+Media for Typography
+=============== */
+@media (max-width:1575px) {
+  #time-container {
+    font-size: 7.5rem;
+  }
+  #quote-text {
+    font-size: 1.35rem;
+  }
+  #quote-author {
+   font-size: 0.95rem;
+  }
+  .input-bar,
+  .btn-bar-enter {
+  font-size: 1.125rem;
+  }
+  .news-headline,
+  .news-headline a,
+  .crypto-values,
+  #input-crypto-id,
+  #btn-change-crypto {
+    font-size: 0.95rem;
+  }
+  .news-author {
+    font-size: 0.85rem;
+  }
+  #crypto-name {
+    font-size: 1.125rem;
+  }
+
+}
+
+@media (max-width:1300px) {
+  #time-container {
+    font-size: 5.5rem;
+  }
+  #quote-text {
+    font-size: 1.25rem;
+  }
+  h3 {
+    font-size: 1.125rem;
+  }
+  #author-img {
+    font-size: 1rem;
+  }
+  #author-img-by {
+    font-size: 0.95rem;
+  }
+  #author-unsplash {
+    font-size: 0.75rem;
+  }
+  .news-headline,
+  .news-headline a,
+  .crypto-values,
+  #input-crypto-id,
+  #btn-change-crypto {
+    font-size: 0.9rem;
+  }
+  .news-author {
+    font-size: 0.8rem;
+  }
+  #crypto-name {
+    font-size: 1rem;
+  }
+}
+
+
+/* ===============
+Buttons & Bar
+=============== */
+
+.btn {
+  border: none;
+  background: none;
+  display: inline-block;
+  font-family: var(--font);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  color: var(--primaryColOp);
+  text-shadow: var(--textShadow);
+  border-radius: 30%;
+  padding: 0.15em 0.45em;
+  transform:scale(1);
+  cursor: pointer;
+}
+
+.btn:hover {
+  transition-property: scale, text-shadow, background-color, color;
+  transition-duration:150ms, 250ms, 250ms, 250ms;
+  background-color: var(--primaryColOp);
+  color: var(--secondaryColOp);
+  text-shadow: none;
+}
+
+.btn:active {
+  transform: scale(0.9)
+}
+
+/* Buttons for options */
+
+.ul-options-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.btn-options-list,
+.btn-options-element {
+  font-size: 0.85rem;
+}
+
+/* === Input bar === */
+
+.bar-container {
+  border-bottom: 1px solid var(--primaryColOp);
+  display: flex;
+  justify-content: space-between; 
+}
+
+.bar-container:hover .input-bar,
+.bar-container:focus .input-bar,
+.bar-container:hover .btn-bar-enter,
+.bar-container:focus .btn-bar-enter,
+.input-bar:focus,
+.input-bar:focus ~ .btn-bar-enter
+{
+  opacity: 1;
+}
+
+.input-bar {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--primaryColOp);
+  text-shadow: var(--textShadow);
+  opacity: 0.3;
+  transition: opacity 0.5s;
+}
+
+.input-bar::placeholder {
+  color: var(--primaryColOp);
+  font-weight: 300;
+}
+
+.btn-bar-enter {
+  opacity: 0.3;
+}
+
+.btn-bar-enter:hover {
+  transition-property: scale, background-color, opacity, text-shadow, color;
+  transition-duration: 150ms, 250ms, 250ms, 250ms, 250ms;
+  opacity: 1;
+  background-color: var(--primaryCol);
+}
+
+/* Button toggle Dark Light */
+.container-button-toggle {
+  opacity: 0.6;
+  margin-top: 1.5rem; 
+  width: 50px;
+  height: 25px;
+  border: 1px solid var(--secondaryCol);
+  border-radius: 25% / 50%;
+  position: relative;
+  background-color: var(--primaryCol);
+  transition-property: opacity;
+  transition-duration: 150ms;
+}
+
+.container-button-toggle:hover {
+  opacity: 1;
+}
+
+#button-dark-light-mode {
+  border: 1px solid var(--primaryCol);
+  background-color: var(--secondaryCol);
+  display: inline-block;
+  height: 23px;
+  width: 23px;
+  border-radius: 50%;
+  position: absolute;
+  transition: transform, 300ms;
+}
+
+/* ===============
+Layout
+=============== */
+
+/* Grid */
+
+main {
+  margin: 5vh;
+  width: 100%;
+  height: 90vh;
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 3fr minmax(200px, 1fr);
+  grid-template-rows: 1.5fr 1fr 1fr 0.5fr;
+  grid-template-areas:
+    'topLeft realCenter topRight'
+    'topLeft realCenter bottomRight'
+    'topLeft realCenter bottomRight'
+    'bottomLeft realBottom bottomRight';
+}
+
+#top-left {
+  grid-area: topLeft;
+}
+#top-right {
+  grid-area: topRight;
+}
+#center {
+  grid-area: realCenter;
+}
+#bottom-left {
+  grid-area: bottomLeft;
+}
+#bottom {
+  grid-area: realBottom;
+}
+#bottom-right {
+  grid-area: bottomRight;
+}
+
+/* General */
+
+h3 {
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10% / 30%;
+}
+
+h3:hover {
+  transition-property:background-color, text-shadow, color;
+  transition-duration: 250ms;
+  background-color: var(--primaryCol);
+  text-shadow: none;
+  color: var(--secondaryColOp);
+}
+
+/* Center: clock and quote */
+
+#center {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem;
+}
+
+#quote-author {
+  margin:0;
+}
+
+#quote-container {
+  max-width: 600px;
+  text-align: center;
+}
+
+#time-container {
+  margin: 0 0 0.3em 0;
+}
+
+/* Bottom-left: author */
+
+#bottom-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+#author-img {
+  margin: 0;
+}
+
+#author-topic {
+  margin: 0.5rem 0 0 0;
+}
+
+#author-unsplash {
+  margin: 0.25rem 0 0 0;
+}
+
+/* Bottom: search bar */
+
+#bottom {
+  align-self: flex-end;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== To do list ===== */
+
+#bottom-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end; 
+}
+
+#to-do-container {
+  min-width: 75%;
+  margin-top: 0.75rem;
+  /* display: flex;
+  flex-direction: column;  ==> it become like this when clicked*/
+  display: none;
+}
+
+#to-do-collection {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+#to-do-container-input {
+  display: none;
+  margin-top: 0.75rem;
+}
+
+#to-do-title {
+  margin: 0;
+}
+
+#to-do-input {
+  width: 100%;
+  padding-left: 1.65rem;
+}
+
+/* todo's single element*/
+.to-do-element {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--primaryColOpPlus);
+}
+
+.to-do-text{
+  margin: 0 auto 0 0;
+}
+
+.to-do-checked {
+  text-decoration: line-through var(--primaryCol);
+  color: var(--primaryColOpPlus);
+}
+
+/* todo's buttons */
+.btn-to-do-check {
+  border-radius: 50%;
+  height: 1rem;
+  border: 2px solid var(--secondaryColOp);
+  margin-right: 0.8rem;
+  cursor: pointer;
+}
+
+.btn-to-do-checked {
+  background-color: var(--secondaryCol);
+  border: 2px solid var(--primaryColOp);
+}
+
+.btn-to-do-remove {
+  margin-left: 0.8rem;
+}
+
+#btn-to-do-add {
+  margin: 0.75rem 0 0 0;
+  display: block;
+  align-self: flex-end;
+  border: 1px solid var(--primaryColOp);
+}
+
+#btn-to-do-add:hover,
+#btn-to-do-add:focus {
+  transition-property: text-shadow, background-color, border;
+  transition-duration: 250ms ;
+  border: 1px solid var(--secondaryColOp); 
+}
+
+/* Weather */
+
+#top-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#weather-title {
+  margin: 0;
+}
+
+#weather-lang-list {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#weather-container {
+  align-self: stretch;
+  margin-top: 0.75rem;
+}
+
+#weather-container-conditions {
+  display: grid;
+  grid-template-columns: 3fr 2fr 52px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 
+  'city temp icon'
+  'condition temp icon';
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+#weather-city {
+  grid-area: city;
+  margin: 0 0 0.25rem 0;
+  align-self: flex-end;
+  border-bottom: 1px solid var(--primaryColOpPlus);
+}
+
+#weather-now {
+  grid-area: condition;
+  margin: 0.25rem 0 0 0;
+  align-self: flex-start
+}
+
+#weather-temp {
+  grid-area: temp;
+  margin: 0;
+  padding: 0 0.5rem 0 0.5rem;
+}
+
+#weather-icon {
+  grid-area: icon;
+  margin: 0;
+  height: 52px;
+}
+
+/* Buttons for language */
+#btn-lang-weather {
+  margin-top: 0.5rem;
+}
+
+#ul-weather-lang {
+  display: none;
+}
+
+#ul-weather-lang .btn-options-element {
+  margin: 0.5rem 0 0 0.5rem
+}
+
+#ul-weather-lang .btn-options-element,
+#btn-lang-weather {
+  padding: 0;
+  width: 2.5em;
+  height: 2.5em;
+}
+
+/* Media for weather */
+@media (max-width: 1300px) {
+  #weather-container-conditions {
+    grid-template-columns: auto 52px;
+    grid-template-rows: 1fr 1fr 52px;
+    grid-template-areas: 
+    'city city'
+    'condition condition'
+    'temp icon';
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+/* ====== News & Crypto ====== */
+
+#top-left {
+  align-self: flex-start;
+  justify-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#news-div,
+#crypto-div {
+  margin-top: 0.5rem
+}
+
+#switch-btn-NC {
+  margin-top: 0.25rem
+}
+
+/* News */
+
+#news-title,
+#crypto-title {
+  margin: 0;
+  
+}
+
+#news-container {
+  width: 85%;
+  min-width: 200px;
+}
+
+.news-headline a:hover {
+  color: var(--primaryColOpPlus);
+}
+
+.news-headline {
+  margin: 1em 0 0 0;
+}
+
+.news-author {
+  margin: 0.5em 0 0 0;
+  border-bottom: 1px solid var(--primaryColOpPlus);
+}
+
+#news-header-flex {
+  display: grid;
+  grid-template-columns: minmax(50px, auto) auto;
+  justify-content: flex-start;
+}
+
+/* Buttons category and lang */
+#news-state-list,
+#news-category-list{
+display: none;
+}
+
+#btn-news-category,
+#news-category-list .btn-options-element,
+#switch-btn-NC .btn-options-list {
+  border-radius: 15%/ 30%;
+}
+
+#news-header .btn-options-element,
+#news-header .btn-options-list,
+#switch-btn-NC .btn-options-list {
+  padding: 0 0.5rem;
+  height: 2rem;
+  margin-right: 0.5rem;
+}
+
+/* Media for news */
+@media  (max-height: 650px),
+        (max-width: 1000px ) {
+  #news-container h4:last-of-type,
+  #news-container p:last-of-type {
+    display: none;
+  }
+}
+
+/* Crypto */
+
+#crypto-header {
+  width: 75%;
+  margin-top: 0.25rem;
+}
+
+#input-crypto-id {
+  width: 100%
+}
+
+/* #btn-change-crypto */
+#crypto-container {
+  margin: 0.75rem 0 0 0;
+}
+
+#crypto-title-container {
+  display: flex;
+  align-items: center;
+}
+
+#crypto-name {
+  order: 1;
+  margin: 0;
+}
+
+#crypto-img{
+ width: 40px;
+ margin: 0 0.5rem 0 0;
+}
+
+.crypto-values {
+  margin: 0.75rem 0 0.75rem 0;
+}
+
