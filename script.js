@@ -35,6 +35,7 @@ const variableRoot = [
     "--secondaryCol",
     "--secondaryColOp",
     "--textShadow",
+    "--filterColor"
 ]
 
 const lightVariable = [
@@ -43,8 +44,11 @@ const lightVariable = [
     "rgba(240,240,240,0.4)",
     "rgba(7,7,7,1)",
     "rgba(7,7,7,0.8)",
-    "1px 1px 0.02em rgba(7,7,7,0.5)"
+    "none",
+    "rgba(7,7,7,0.1)"
+    
 ]
+//"1px 1px 0.02em rgba(7,7,7,0.5)"
 
 const darkVariable = [
     "rgba(7,7,7,1)",
@@ -52,9 +56,11 @@ const darkVariable = [
     "rgba(7,7,7,0.4)",
     "rgba(240,240,240,1)",
     "rgba(240,240,240,0.8)",
-    "1px 1px 0.02em rgba(240,240,240,0.5)"
+    "none",
+    "rgba(240,240,240,0.1)"
 ]
 
+// "1px 1px 0.02em rgba(240,240,240,0.5)"
 btnDLModeContainer.onclick = () => {
     if (darkLightMode === "light") {
         toggleDarkLightMode(darkVariable)
@@ -98,12 +104,11 @@ if (imageQuery == null || imageQuery === "") { //search for an error in get the 
 }
 
 async function getImage() { //Getting the API for the image and showing it
-    // let response = await fetch(`https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=${imageQuery}`)
-    // let data = await response.json().catch(err => console.error(err))
-    // backgroundImg.src = `${data.urls.regular}`
-    backgroundImg.src = "https://images.unsplash.com/photo-1542396817-804fa5be8ecf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDI0NzB8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MzgwMjUwMTM&ixlib=rb-1.2.1&q=80&w=1080"
-    // console.log(data.urls.regular)    
-    // return data
+    let response = await fetch(`https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=${imageQuery}`)
+    let data = await response.json().catch(err => console.error(err))
+    document.body.style.backgroundImage = `url("${data.urls.regular}")`
+    // document.body.style.backgroundImage = `url("https://images.unsplash.com/photo-1542396817-804fa5be8ecf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDI0NzB8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MzgwMjUwMTM&ixlib=rb-1.2.1&q=80&w=1080")`
+    return data
 }
 
 /* Changing topic of the image with the input field */

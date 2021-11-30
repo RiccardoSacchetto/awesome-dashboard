@@ -1,14 +1,14 @@
-.disNone {
-  display: none;
-}
 :root {
   --primaryCol: rgba(240,240,240,1);
   --primaryColOp: rgba(240,240,240,0.8);
   --primaryColOpPlus : rgba(240,240,240,0.4);
   --secondaryCol: rgba(7,7,7,1);
   --secondaryColOp: rgba(7,7,7,0.8);
-  --textShadow: 1px 1px 0.02em rgba(7,7,7,0.5);
+  --textShadow: none;
+  --filterColor: rgba(7,7,7,0.2);
+  /* 1px 1px 0.02em rgba(7,7,7,0.5); */
   --font: 'Montserrat', sans-serif;
+  --fontWeightBody: 400;
 }
 
 /* ===============
@@ -24,13 +24,18 @@ body {
   color: var(--primaryCol);
   font-family: var(--font);
   text-shadow: var(--textShadow); /* a lot of doubts about it */
-  font-weight: 500;
+  font-weight: var(--fontWeightBody);
   letter-spacing: 1px;
   position: relative;
   display: flex;
+  background-color: var(--filterColor);
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
-#background-image {
+/* #background-image {
   align-self: center;
   justify-self: center;
   margin: 0;
@@ -42,7 +47,7 @@ body {
   right: 0;
   left: 0;
   bottom: 0;
-}
+} */
 
 @keyframes fadeInAnimation {
   0% {
@@ -67,7 +72,7 @@ body {
 
 #main-body { /* Per il toggle dark and white mode */
   transition-property: all;
-  transition-duration: 500ms;
+  transition-duration: 250ms;
 }
 
 /* ===============
@@ -95,35 +100,30 @@ input {
 #quote-text {
   font-style: italic;
   font-size: 1.5rem;
-  font-weight: 300;
   text-align: start;
 }
 
 #quote-author {
   text-align: end;
   font-size: 1rem;
-  font-weight: 300;
 }
 
 /* Author img */
 
 #author-img {
   font-size: 1.125rem;
-  font-weight: 300;
   text-transform: capitalize;
 }
 
 #author-img-by,
 #author-topic {
   font-size: 1rem;
-  font-weight: 300;
   opacity: 0.8;
   text-transform: capitalize;
 }
 
 #author-unsplash {
   font-size: 0.85rem;
-  font-weight: 300;
   opacity: 0.8;
 }
 
@@ -131,7 +131,7 @@ input {
 
 .input-bar,
 .btn-bar-enter {
-  font-weight: 300;
+  font-weight: var(--fontWeightBody);
   font-size: 1.25rem;
   letter-spacing: 1px;
 }
@@ -140,7 +140,6 @@ input {
 
 .to-do-text{
   font-size: 1rem;
-  font-weight: 300;
 }
 
 #to-do-input {
@@ -152,7 +151,7 @@ input {
 #weather-city,
 #weather-now {
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: var(--fontWeightBody);
 }
 
 #weather-now::first-letter {
@@ -162,7 +161,7 @@ input {
 #weather-temp {
   text-align: center;
   font-size: 2.5rem;
-  font-weight: 300;
+  font-weight: var(--fontWeightBody);
 }
 
 /* News */
@@ -171,14 +170,12 @@ input {
 .news-headline a {
   text-decoration: none;
   font-family: var(--font);
-  font-weight: 300;
   font-size: 1rem;
   color: var(--primaryCol)
 }
 
 .news-author {
   font-size: 0.9rem;
-  font-weight: 300;
   font-style: italic;
   text-align: end;
 }
@@ -202,12 +199,11 @@ input {
 
 #crypto-name {
   font-size: 1.25rem;
-  font-weight: 300;
+  font-weight: var(--fontWeightBody);
 }
 
 .crypto-values {
   font-size: 1rem;
-  font-weight: 300;
 }
 
 /* ===============
@@ -352,7 +348,6 @@ Buttons & Bar
 
 .input-bar::placeholder {
   color: var(--primaryColOp);
-  font-weight: 300;
 }
 
 .btn-bar-enter {
