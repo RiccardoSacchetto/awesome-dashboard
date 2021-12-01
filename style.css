@@ -4,9 +4,7 @@
   --primaryColOpPlus : rgba(240,240,240,0.4);
   --secondaryCol: rgba(7,7,7,1);
   --secondaryColOp: rgba(7,7,7,0.8);
-  --textShadow: none;
   --filterColor: rgba(7,7,7,0.2);
-  /* 1px 1px 0.02em rgba(7,7,7,0.5); */
   --font: 'Montserrat', sans-serif;
   --fontWeightBody: 400;
 }
@@ -23,7 +21,6 @@ body {
   margin: 0;
   color: var(--primaryCol);
   font-family: var(--font);
-  text-shadow: var(--textShadow); /* a lot of doubts about it */
   font-weight: var(--fontWeightBody);
   letter-spacing: 1px;
   position: relative;
@@ -34,20 +31,6 @@ body {
   background-size: cover;
   background-position: center;
 }
-
-/* #background-image {
-  align-self: center;
-  justify-self: center;
-  margin: 0;
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-} */
 
 @keyframes fadeInAnimation {
   0% {
@@ -94,7 +77,7 @@ input {
 
 #time-container {
   font-size: 9.5rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 #quote-text {
@@ -125,6 +108,16 @@ input {
 #author-unsplash {
   font-size: 0.85rem;
   opacity: 0.8;
+}
+
+#author-img a,
+#author-unsplash a {
+  color: var(--primaryCol);
+}
+
+#author-img a:hover,
+#author-unsplash a:hover {
+  text-decoration: none;
 }
 
 /* Search bar */
@@ -286,7 +279,6 @@ Buttons & Bar
   font-size: 1rem;
   letter-spacing: 1px;
   color: var(--primaryColOp);
-  text-shadow: var(--textShadow);
   border-radius: 30%;
   padding: 0.15em 0.45em;
   transform:scale(1);
@@ -294,11 +286,10 @@ Buttons & Bar
 }
 
 .btn:hover {
-  transition-property: scale, text-shadow, background-color, color;
-  transition-duration:150ms, 250ms, 250ms, 250ms;
+  transition-property: scale, background-color, color;
+  transition-duration:150ms, 250ms, 250ms;
   background-color: var(--primaryColOp);
   color: var(--secondaryColOp);
-  text-shadow: none;
 }
 
 .btn:active {
@@ -341,7 +332,6 @@ Buttons & Bar
   border: none;
   outline: none;
   color: var(--primaryColOp);
-  text-shadow: var(--textShadow);
   opacity: 0.3;
   transition: opacity 0.5s;
 }
@@ -355,24 +345,26 @@ Buttons & Bar
 }
 
 .btn-bar-enter:hover {
-  transition-property: scale, background-color, opacity, text-shadow, color;
-  transition-duration: 150ms, 250ms, 250ms, 250ms, 250ms;
+  transition-property: scale, background-color, opacity, color;
+  transition-duration: 150ms, 250ms, 250ms, 250ms;
   opacity: 1;
   background-color: var(--primaryCol);
 }
 
 /* Button toggle Dark Light */
+
 .container-button-toggle {
   opacity: 0.6;
   margin-top: 1.5rem; 
   width: 50px;
   height: 25px;
-  border: 1px solid var(--secondaryCol);
+  border: 1px solid var(--primaryCol);
   border-radius: 25% / 50%;
   position: relative;
-  background-color: var(--primaryCol);
+  background-color: var(--secondaryCol);
   transition-property: opacity;
   transition-duration: 150ms;
+  cursor: pointer;
 }
 
 .container-button-toggle:hover {
@@ -380,8 +372,8 @@ Buttons & Bar
 }
 
 #button-dark-light-mode {
-  border: 1px solid var(--primaryCol);
-  background-color: var(--secondaryCol);
+  border: 1px solid var(--secondaryCol);
+  background-color: var(--primaryCol);
   display: inline-block;
   height: 23px;
   width: 23px;
@@ -438,10 +430,9 @@ h3 {
 }
 
 h3:hover {
-  transition-property:background-color, text-shadow, color;
+  transition-property:background-color, color;
   transition-duration: 250ms;
   background-color: var(--primaryCol);
-  text-shadow: none;
   color: var(--secondaryColOp);
 }
 
@@ -478,15 +469,15 @@ h3:hover {
 }
 
 #author-img {
+  margin: 0 0 0.25rem;
+}
+
+#author-unsplash {
   margin: 0;
 }
 
 #author-topic {
-  margin: 0.5rem 0 0 0;
-}
-
-#author-unsplash {
-  margin: 0.25rem 0 0 0;
+  margin: 0.5rem 0 0;
 }
 
 /* Bottom: search bar */
@@ -494,9 +485,6 @@ h3:hover {
 #bottom {
   align-self: flex-end;
   justify-self: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 /* ===== To do list ===== */
@@ -582,7 +570,7 @@ h3:hover {
 
 #btn-to-do-add:hover,
 #btn-to-do-add:focus {
-  transition-property: text-shadow, background-color, border;
+  transition-property: background-color, border;
   transition-duration: 250ms ;
   border: 1px solid var(--secondaryColOp); 
 }

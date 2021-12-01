@@ -19,82 +19,11 @@ General function
 
 
 /* ==================
-Dark Light Mode
-================== */
-
-const mainBody = document.getElementById("main-body")
-const btnDLModeContainer = document.getElementById("button-dark-light-mode-container")
-const btnDLMode = document.getElementById("button-dark-light-mode")
-const rootCSS = document.querySelector(":root").style
-if (localStorage.getItem("darkLightMode") == null) {localStorage.setItem("darkLightMode", "light")}
-let darkLightMode = localStorage.getItem("darkLightMode")
-const variableRoot = [
-    "--primaryCol",
-    "--primaryColOp",
-    "--primaryColOpPlus",
-    "--secondaryCol",
-    "--secondaryColOp",
-    "--textShadow",
-    "--filterColor"
-]
-
-const lightVariable = [
-    "rgba(240,240,240,1)",
-    "rgba(240,240,240,0.8)",
-    "rgba(240,240,240,0.4)",
-    "rgba(7,7,7,1)",
-    "rgba(7,7,7,0.8)",
-    "none",
-    "rgba(7,7,7,0.1)"
-    
-]
-//"1px 1px 0.02em rgba(7,7,7,0.5)"
-
-const darkVariable = [
-    "rgba(7,7,7,1)",
-    "rgba(7,7,7,0.8)",
-    "rgba(7,7,7,0.4)",
-    "rgba(240,240,240,1)",
-    "rgba(240,240,240,0.8)",
-    "none",
-    "rgba(240,240,240,0.1)"
-]
-
-// "1px 1px 0.02em rgba(240,240,240,0.5)"
-btnDLModeContainer.onclick = () => {
-    if (darkLightMode === "light") {
-        toggleDarkLightMode(darkVariable)
-        localStorage.setItem("darkLightMode", "dark")
-        darkLightMode = localStorage.getItem("darkLightMode")
-        btnDLMode.style.transform = "translateX(25px)"
-     } 
-    else if (darkLightMode === "dark" ){ 
-        toggleDarkLightMode(lightVariable) 
-        localStorage.setItem("darkLightMode", "light")
-        darkLightMode = localStorage.getItem("darkLightMode")
-        btnDLMode.style.transform = "translateX(0px)"
-    }
-}
-
-function toggleDarkLightMode(variable) {
-    for (let i = 0; i < variableRoot.length; i++) {
-        rootCSS.setProperty(variableRoot[i], variable[i])
-    }
-}
-
-if (darkLightMode === "light") { // first time open site
-    toggleDarkLightMode(lightVariable)
-    btnDLMode.style.transform = "translateX(0px)"
-}
-else if (darkLightMode === "dark") {
-    toggleDarkLightMode(darkVariable)
-    btnDLMode.style.transform = "translateX(25px)"
-}
-
-/* ==================
 Background image
 ================== */
+
 const backgroundImg = document.getElementById("background-image")
+let resultColor
 
 /* Accessing local storage for image topic */
 let imageQuery = localStorage.getItem("image topic")
@@ -107,7 +36,18 @@ async function getImage() { //Getting the API for the image and showing it
     let response = await fetch(`https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=${imageQuery}`)
     let data = await response.json().catch(err => console.error(err))
     document.body.style.backgroundImage = `url("${data.urls.regular}")`
-    // document.body.style.backgroundImage = `url("https://images.unsplash.com/photo-1542396817-804fa5be8ecf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDI0NzB8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MzgwMjUwMTM&ixlib=rb-1.2.1&q=80&w=1080")`
+    let color1 = parseInt(`${data.color.substring(1,3)}`, 16)
+    let color2 = parseInt(`${data.color.substring(3,5)}`, 16)
+    let color3 = parseInt(`${data.color.substring(5,7)}`, 16)
+    resultColor = parseInt((color1+color2+color3)/3)
+    // console.log(data.color)
+    // console.log(resultColor)
+    if( resultColor > 180 && darkLightMode === "light" ||
+        resultColor <= 180 && darkLightMode === "dark") {
+            changeDarkLightMode()
+    } 
+    console.log(data)
+    console.log(data.user.links.html)
     return data
 }
 
@@ -132,14 +72,92 @@ function changeImageTopic() {
 
 /* Author */
 
-getImage()
-// getImage().then(data => {
-//     bottomLeft.innerHTML = `
-//     <p id="author-img"><span id="author-img-by">Ph: </span>${data.user.name}</p>
-//     <p id="author-topic">Topic: ${imageQuery}</p>
-//     <p id="author-unsplash">by Unsplash</p>
-//     `
-// })
+const authorContainer = document.getElementById("author-container")
+getImage().then(data => {
+    authorContainer.innerHTML = `
+    <p id="author-img"><span id="author-img-by">Ph: </span><a href="${data.user.links.html}">${data.user.name}</a></p>
+    <p id="author-unsplash">by <a href="https://unsplash.com/">Unsplash</a></p>
+    <p id="author-topic">Topic: ${imageQuery}</p>
+    `
+})
+
+/* ==================
+Dark Light Mode
+================== */
+
+const mainBody = document.getElementById("main-body")
+const btnDLModeContainer = document.getElementById("button-dark-light-mode-container")
+const btnDLMode = document.getElementById("button-dark-light-mode")
+const rootCSS = document.querySelector(":root").style
+if (localStorage.getItem("darkLightMode") == null) {localStorage.setItem("darkLightMode", "light")}
+let darkLightMode = localStorage.getItem("darkLightMode")
+const variableRoot = [
+    "--primaryCol",
+    "--primaryColOp",
+    "--primaryColOpPlus",
+    "--secondaryCol",
+    "--secondaryColOp",
+    "--filterColor"
+]
+
+const lightVariable = [
+    "rgba(240,240,240,1)",
+    "rgba(240,240,240,0.8)",
+    "rgba(240,240,240,0.4)",
+    "rgba(7,7,7,1)",
+    "rgba(7,7,7,0.8)",
+    "rgba(7,7,7,0.1)"
+    
+]
+//"1px 1px 0.02em rgba(7,7,7,0.5)"
+
+const darkVariable = [
+    "rgba(7,7,7,1)",
+    "rgba(7,7,7,0.8)",
+    "rgba(7,7,7,0.4)",
+    "rgba(240,240,240,1)",
+    "rgba(240,240,240,0.8)",
+    "rgba(240,240,240,0.1)"
+]
+
+// "1px 1px 0.02em rgba(240,240,240,0.5)"
+btnDLModeContainer.onclick = () => changeDarkLightMode()
+
+function changeDarkLightMode() {
+    if (darkLightMode === "light") {
+        toggleRootDarkLightMode(darkVariable)
+        localStorage.setItem("darkLightMode", "dark")
+        darkLightMode = localStorage.getItem("darkLightMode")
+        btnDLMode.style.transform = "translateX(25px)"
+     } 
+    else if (darkLightMode === "dark" ){ 
+        toggleRootDarkLightMode(lightVariable) 
+        localStorage.setItem("darkLightMode", "light")
+        darkLightMode = localStorage.getItem("darkLightMode")
+        btnDLMode.style.transform = "translateX(0px)"
+    }
+}
+
+function toggleRootDarkLightMode(variable) {
+    if(resultColor >= 160 && resultColor <= 200) {
+        for (let i = 0; i < variableRoot.length; i++) {
+            rootCSS.setProperty(variableRoot[i], variable[i])
+        }
+    } else if(resultColor < 160 || resultColor >200) {
+        for (let i = 0; i < (variableRoot.length - 1); i++) {
+            rootCSS.setProperty(variableRoot[i], variable[i])
+        }
+    }
+}
+
+if (darkLightMode === "light") { // first time open site
+    toggleRootDarkLightMode(lightVariable)
+    btnDLMode.style.transform = "translateX(0px)"
+}
+else if (darkLightMode === "dark") {
+    toggleRootDarkLightMode(darkVariable)
+    btnDLMode.style.transform = "translateX(25px)"
+}
 
 /* ==================
 Time
@@ -160,13 +178,19 @@ Daily quote
 
 /* Accessing local storage for indexQuote */
 if (localStorage.getItem("indexQuote") == null || localStorage.getItem("indexQuote") === 1642) {localStorage.setItem("indexQuote", 0)}
-const indexQuote = localStorage.getItem("indexQuote")
-const dateDay = new Date().getDate()
-const dateMonth = (new Date().getUTCMonth() + 1)
+let indexQuote = localStorage.getItem("indexQuote")
+const dateDay = new Date().getDate() + 6
+const dateMonth = (new Date().getMonth() + 1)
 const dateToday = `${dateDay}.${dateMonth}`
 if (localStorage.getItem("date") == null) { localStorage.setItem("date", dateToday) }
-const dateLocal = localStorage.getItem("date")
-if (dateToday !== dateLocal) { localStorage.setItem("indexQuote", (indexQuote + 1) ) }
+let dateLocal = localStorage.getItem("date")
+if (dateToday !== dateLocal) { 
+    indexQuote ++
+    console.log(indexQuote)
+    localStorage.setItem("indexQuote", indexQuote) 
+    localStorage.setItem("date", dateToday)
+    dateLocal = localStorage.getItem("date")
+}
 
 /* Function to change the daily quote */
 const quoteText = document.getElementById("quote-text")

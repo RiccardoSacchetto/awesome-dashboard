@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "Awesome Dashboard",
+    "version": "1.0.0",
+    "description": "An awesome dashboard for the new page on your browser",
+    "action": {
+        "default_icon": "dashboard.png"
+    },
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    }
+}
