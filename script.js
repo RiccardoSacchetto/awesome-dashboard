@@ -46,8 +46,8 @@ async function getImage() { //Getting the API for the image and showing it
         resultColor <= 180 && darkLightMode === "dark") {
             changeDarkLightMode()
     } 
-    console.log(data)
-    console.log(data.user.links.html)
+    // console.log(data)
+    // console.log(data.user.links.html)
     return data
 }
 
@@ -351,17 +351,19 @@ btnLangWeather.addEventListener("click", function () {
     btnLangWeather.style.display = "none"
 })
 
+const langArray = ["IT", "EN"]
+
 function changeWeatherLang(lang) {
-    if (lang === 1) {
-        languageWeather = "IT"
-    } else if (lang === 2) {
-        languageWeather = "EN"
-    } 
+    languageWeather = langArray[lang]
     localStorage.setItem("language weather", languageWeather)
     btnLangWeather.textContent = languageWeather
     weatherLangList.style.display = "none"
     btnLangWeather.style.display = "inline-block"
     getWeather()
+}
+
+for (let i = 0; i < langArray.length; i++) {
+    weatherLangList.innerHTML += `<li><button class="btn btn-options-element" onclick="changeWeatherLang(${i})">${langArray[i]}</button></li>`
 }
 
 /* Getting current position with different function and launching the API if success */
@@ -514,9 +516,11 @@ News
 const btnNewsState = document.getElementById("btn-news-state")
 const btnNewsStateContainer = document.getElementById("btn-news-state-container")
 const btnNewsCategory = document.getElementById("btn-news-category")
-const newsStateList = document.getElementById("news-state-list")
-const newsCategoryList = document.getElementById("news-category-list")
+const newsCountryContainer = document.getElementById("news-country-container")
+const newsCategoryContainer = document.getElementById("news-category-container")
 const newsContainer = document.getElementById("news-container")
+const newsCountryList = document.getElementById("news-country-list")
+const newsCategoryList = document.getElementById("news-category-list")
 
 /* Category and country "buttons" and style */
 let countryNews = localStorage.getItem("country news")
@@ -534,67 +538,54 @@ if (categoryNews == null || categoryNews === "") {
 btnNewsCategory.textContent = categoryNews
 
 btnNewsState.addEventListener("click", function () {
-    newsStateList.style.display = "block"
+    newsCountryContainer.style.display = "block"
     btnNewsStateContainer.style.display = "none"
-    newsCategoryList.style.display = "none"
+    newsCategoryContainer.style.display = "none"
     btnNewsCategory.style.display = "inline-block"
     switchNC.style.display = "none"
     newsContainer.style.display = "none"
 })
 
 btnNewsCategory.addEventListener("click", function () {
-    newsCategoryList.style.display = "block"
+    newsCategoryContainer.style.display = "block"
     btnNewsCategory.style.display = "none"
-    newsStateList.style.display = "none"
+    newsCountryContainer.style.display = "none"
     btnNewsStateContainer.style.display = "block"
     switchNC.style.display = "none"
     newsContainer.style.display = "none"
 })
 
+const countryArray = ["it", "fr", "de", "pt", "gb", "us"]
+
 function changeNewsState(state) {
-    if (state === 1) {
-        countryNews = "it"
-    } else if (state === 2) {
-        countryNews = "fr"
-    } else if (state === 3) {
-        countryNews = "de"
-    } else if (state === 4) {
-        countryNews = "pt"
-    } else if (state === 5) {
-        countryNews = "gb"
-    } else if (state === 6) {
-        countryNews = "us"
-    }
+    countryNews = countryArray[state]
     localStorage.setItem("country news", countryNews)
     btnNewsState.textContent = countryNews
-    newsStateList.style.display = "none"
+    newsCountryContainer.style.display = "none"
     btnNewsStateContainer.style.display = "block"
     getNews()
 }
 
+for (let i = 0; i < countryArray.length; i++) {
+    newsCountryList.innerHTML += `<li><button class="btn btn-options-element" onclick="changeNewsState(${i})">${countryArray[i]}</button></li>`
+}
+
+const categoryArray = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
+
 function changeNewsCategory(category) {
-    if (category === 1) {
-        categoryNews = "business"
-    } else if (category === 2) {
-        categoryNews = "entertainment"
-    } else if (category === 3) {
-        categoryNews = "general"
-    } else if (category === 4) {
-        categoryNews = "health"
-    } else if (category === 5) {
-        categoryNews = "science"
-    } else if (category === 6) {
-        categoryNews = "sports"
-    } else if (category === 7) {
-        categoryNews = "technology"
-    }
+    categoryNews = categoryArray[category]
     localStorage.setItem("category news", categoryNews)
     btnNewsCategory.textContent = categoryNews
-    newsCategoryList.style.display = "none"
+    newsCategoryContainer.style.display = "none"
     btnNewsCategory.style.display = "inline-block"
     getNews()
 }
 
+for (let i = 0; i < categoryArray.length; i++) {
+    console.log("passed here")
+    newsCategoryList.innerHTML += `<li><button class="btn btn-options-element" onclick="changeNewsCategory(${i})">${categoryArray[i]}</button></li>`
+}
+// console.log(newsCategoryList.innerHTML)
 getNews()
 
 async function getNews() { //API for getting the News and show what we want with a for loop for 3 news
@@ -659,9 +650,3 @@ async function getCrypto() { //API for Crypto and showing the data we want
     <p class= "crypto-values"> 30 days: ${Math.round((data.market_data.price_change_percentage_30d)* 100)/100 }%</p>   
     `
 }
-
-
-/* 
-1. Change the way you use the background image putting like a backgroudn image of the body
-2. use background blend to see if we can rid of the text shadow 
-*/

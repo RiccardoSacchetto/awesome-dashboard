@@ -174,12 +174,12 @@ input {
 }
 
 #btn-news-category,
-#news-category-list .btn-options-element {
+#news-category-container .btn-options-element {
   text-transform: capitalize;
 }
 
 #btn-news-state,
-#news-state-list .btn-options-element {
+#news-country-container .btn-options-element {
   text-transform: uppercase;
 }
 
@@ -720,13 +720,13 @@ h3:hover {
 }
 
 /* Buttons category and lang */
-#news-state-list,
-#news-category-list{
+#news-country-container,
+#news-category-container{
 display: none;
 }
 
 #btn-news-category,
-#news-category-list .btn-options-element,
+#news-category-container .btn-options-element,
 #switch-btn-NC .btn-options-list {
   border-radius: 15%/ 30%;
 }
