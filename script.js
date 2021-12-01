@@ -237,21 +237,27 @@ function showToDoList() { //Showing the todos with a for loop dividing if their 
         if (toDoChecked.includes(i) === true) {
             toDoCollection.innerHTML += `
             <li class="to-do-element">
-                <button class="btn-to-do-check btn-to-do-checked" onclick="checkToDoEl(${i})"></button>
+                <button class="btn-to-do-check btn-to-do-checked" id="checkToDoEl${i}"></button>
                 <p class="to-do-text to-do-checked">${toDoList[i]}</p>
-                <button class="btn btn-to-do-remove" onclick="removeToDoEl(${i})">x</button>
+                <button class="btn btn-to-do-remove" id="removeToDoEl${i}">x</button>
             </li>
             `
         } else {
             toDoCollection.innerHTML += `
             <li class="to-do-element">
-                <button class="btn-to-do-check" onclick="checkToDoEl(${i})"></button>
+                <button class="btn-to-do-check" id="checkToDoEl${i}"></button>
                 <p class="to-do-text">${toDoList[i]}</p>
-                <button class="btn btn-to-do-remove" onclick="removeToDoEl(${i})">x</button>
+                <button class="btn btn-to-do-remove" id="removeToDoEl${i}">x</button>
             </li>
             `
         }
     }
+
+    for (let i = 0; i < toDoList.length; i++) {
+        document.getElementById(`checkToDoEl${i}`).onclick = () => checkToDoEl(i)
+        document.getElementById(`removeToDoEl${i}`).onclick = () => removeToDoEl(i)
+    }
+
 }
 
 function refreshToDolist() { //Updating the localStorage with the todos and checked
@@ -315,14 +321,9 @@ btnTDAdd.addEventListener("click", function () { //Displaying the input when cli
 
 function addToDoEl() { // Adding new element of the todo > with enter in the input
     toDoList.push(toDoInput.value)
-    toDoCollection.innerHTML += `
-    <li class="to-do-element">
-        <button class="btn-to-do-check" onclick="checkToDoEl(${toDoList.length - 1})"></button>
-        <p class="to-do-text">${toDoList[toDoList.length - 1]}</p>
-        <button class="btn btn-to-do-remove" onclick="removeToDoEl(${toDoList.length - 1})">x</button>
-    </li>
-    `
+    toDoCollection.innerHTML = ""
     refreshToDolist()
+    showToDoList()
 }
 
 toDoInput.addEventListener("keyup", function (e) {
@@ -363,7 +364,11 @@ function changeWeatherLang(lang) {
 }
 
 for (let i = 0; i < langArray.length; i++) {
-    weatherLangList.innerHTML += `<li><button class="btn btn-options-element" onclick="changeWeatherLang(${i})">${langArray[i]}</button></li>`
+    weatherLangList.innerHTML += `<li><button class="btn btn-options-element" id="weatherLang${i}">${langArray[i]}</button></li>`
+}
+
+for (let i = 0; i < langArray.length; i++) {
+    document.getElementById(`weatherLang${i}`).onclick = () => changeWeatherLang(i)
 }
 
 /* Getting current position with different function and launching the API if success */
@@ -567,7 +572,11 @@ function changeNewsState(state) {
 }
 
 for (let i = 0; i < countryArray.length; i++) {
-    newsCountryList.innerHTML += `<li><button class="btn btn-options-element" onclick="changeNewsState(${i})">${countryArray[i]}</button></li>`
+    newsCountryList.innerHTML += `<li><button class="btn btn-options-element" id="countryEl${i}">${countryArray[i]}</button></li>`
+}
+
+for (let i = 0; i < countryArray.length; i++) {
+    document.getElementById(`countryEl${i}`).onclick = () => changeNewsState(i)
 }
 
 const categoryArray = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
@@ -582,9 +591,13 @@ function changeNewsCategory(category) {
 }
 
 for (let i = 0; i < categoryArray.length; i++) {
-    console.log("passed here")
-    newsCategoryList.innerHTML += `<li><button class="btn btn-options-element" onclick="changeNewsCategory(${i})">${categoryArray[i]}</button></li>`
+    newsCategoryList.innerHTML += `<li><button class="btn btn-options-element" id="categoryEl${i}">${categoryArray[i]}</button></li>`
 }
+
+for (let i = 0; i < categoryArray.length; i++) {
+    document.getElementById(`categoryEl${i}`).onclick = () => changeNewsCategory(i)
+}
+
 // console.log(newsCategoryList.innerHTML)
 getNews()
 
@@ -650,3 +663,5 @@ async function getCrypto() { //API for Crypto and showing the data we want
     <p class= "crypto-values"> 30 days: ${Math.round((data.market_data.price_change_percentage_30d)* 100)/100 }%</p>   
     `
 }
+
+console.log("version updated3")
