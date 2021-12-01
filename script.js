@@ -14,11 +14,6 @@ const bottom = document.getElementById("bottom")
 const bottomRight = document.getElementById("bottom-right")
 
 /* ==================
-General function
-================== */
-
-
-/* ==================
 Background image
 ================== */
 
@@ -430,194 +425,6 @@ function showWeather() {
 weatherTitle.addEventListener("click", showWeather)
 
 /* ==================
-Transition News Crypto
-================== */
-
-const switchNC = document.getElementById("switch-btn-NC")
-const btnNewsToCrypto = document.getElementById("btn-news-to-crypto")
-const btnCryptoToNews = document.getElementById("btn-crypto-to-news")
-const newsDiv = document.getElementById("news-div")
-const cryptoDiv = document.getElementById("crypto-div")
-const newsTitle = document.getElementById("news-title")
-const cryptoTitle = document.getElementById("crypto-title")
-// localStorage.removeItem("nc display")
-if (localStorage.getItem("nc display") == null) { localStorage.setItem("nc display", "true") }
-let NCdisplayTF = localStorage.getItem("nc display")
-// localStorage.removeItem("crypto or news")
-if (localStorage.getItem("crypto or news") == null) { localStorage.setItem("crypto or news", "news") }
-let cryptoOrNews = localStorage.getItem("crypto or news") //Access localStorage to know what to show
-
-function showCryptoOrNews(){
-    if (cryptoOrNews === "news") {
-    showNews()
-    } else if (cryptoOrNews === "crypto") {
-    showCrypto()
-    } 
-}
-// 
-/* Functions to show one or the other */
-function showNews() {
-    switchNC.style.display = "block"
-    newsDiv.style.display = "block"
-    cryptoDiv.style.display = "none"
-    btnCryptoToNews.style.display = "none"
-    btnNewsToCrypto.style.display = "inline-block"
-    newsTitle.style.display = "block"
-    cryptoTitle.style.display = "none"
-    cryptoOrNews = "news"
-    localStorage.setItem("crypto or news", cryptoOrNews)
-}
-
-function showCrypto() {
-    switchNC.style.display = "block"
-    newsDiv.style.display = "none"
-    cryptoDiv.style.display = "block"
-    btnNewsToCrypto.style.display = "none"
-    btnCryptoToNews.style.display = "inline-block"
-    cryptoTitle.style.display = "block"
-    newsTitle.style.display = "none"
-    cryptoOrNews = "crypto"
-    localStorage.setItem("crypto or news", cryptoOrNews)
-}
-
-btnNewsToCrypto.addEventListener("click", showCrypto)
-btnCryptoToNews.addEventListener("click", showNews)
-
-if (NCdisplayTF === "true") { //Showing like was when it was closed
-    showCryptoOrNews()
-} else if (NCdisplayTF === "false") {
-    newsDiv.style.display = "none" 
-    cryptoDiv.style.display = "none" 
-    switchNC.style.display = "none"
-    btnCryptoToNews.style.display = "none"
-    btnNewsToCrypto.style.display = "none"
-    if (cryptoOrNews === "news") {
-        cryptoTitle.style.display = "none"
-    } else if (cryptoOrNews === "crypto") {
-        newsTitle.style.display = "none"
-    } 
-}
-
-function NCdisplay() { //How to menage the click of the news or crypto title
-    if (NCdisplayTF === "true") {
-        newsDiv.style.display = "none"
-        cryptoDiv.style.display = "none" 
-        switchNC.style.display = "none"
-        NCdisplayTF = "false"
-    } else if(NCdisplayTF === "false") {
-        showCryptoOrNews()
-        NCdisplayTF = "true"
-    }
-    localStorage.setItem("nc display", NCdisplayTF)
-}
-
-newsTitle.addEventListener("click", NCdisplay)
-cryptoTitle.addEventListener("click", NCdisplay)
-
-/* ==================
-News
-================== */
-
-const btnNewsState = document.getElementById("btn-news-state")
-const btnNewsStateContainer = document.getElementById("btn-news-state-container")
-const btnNewsCategory = document.getElementById("btn-news-category")
-const newsCountryContainer = document.getElementById("news-country-container")
-const newsCategoryContainer = document.getElementById("news-category-container")
-const newsContainer = document.getElementById("news-container")
-const newsCountryList = document.getElementById("news-country-list")
-const newsCategoryList = document.getElementById("news-category-list")
-
-/* Category and country "buttons" and style */
-let countryNews = localStorage.getItem("country news")
-if (countryNews == null || countryNews === "") {
-    localStorage.setItem("country news", "it")
-    countryNews = localStorage.getItem("country news")
-}
-btnNewsState.textContent = countryNews
-
-let categoryNews = localStorage.getItem("category news")
-if (categoryNews == null || categoryNews === "") {
-    localStorage.setItem("category news", "general")
-    categoryNews = localStorage.getItem("category news")
-}
-btnNewsCategory.textContent = categoryNews
-
-btnNewsState.addEventListener("click", function () {
-    newsCountryContainer.style.display = "block"
-    btnNewsStateContainer.style.display = "none"
-    newsCategoryContainer.style.display = "none"
-    btnNewsCategory.style.display = "inline-block"
-    switchNC.style.display = "none"
-    newsContainer.style.display = "none"
-})
-
-btnNewsCategory.addEventListener("click", function () {
-    newsCategoryContainer.style.display = "block"
-    btnNewsCategory.style.display = "none"
-    newsCountryContainer.style.display = "none"
-    btnNewsStateContainer.style.display = "block"
-    switchNC.style.display = "none"
-    newsContainer.style.display = "none"
-})
-
-const countryArray = ["it", "fr", "de", "pt", "gb", "us"]
-
-function changeNewsState(state) {
-    countryNews = countryArray[state]
-    localStorage.setItem("country news", countryNews)
-    btnNewsState.textContent = countryNews
-    newsCountryContainer.style.display = "none"
-    btnNewsStateContainer.style.display = "block"
-    getNews()
-}
-
-for (let i = 0; i < countryArray.length; i++) {
-    newsCountryList.innerHTML += `<li><button class="btn btn-options-element" id="countryEl${i}">${countryArray[i]}</button></li>`
-}
-
-for (let i = 0; i < countryArray.length; i++) {
-    document.getElementById(`countryEl${i}`).onclick = () => changeNewsState(i)
-}
-
-const categoryArray = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
-
-function changeNewsCategory(category) {
-    categoryNews = categoryArray[category]
-    localStorage.setItem("category news", categoryNews)
-    btnNewsCategory.textContent = categoryNews
-    newsCategoryContainer.style.display = "none"
-    btnNewsCategory.style.display = "inline-block"
-    getNews()
-}
-
-for (let i = 0; i < categoryArray.length; i++) {
-    newsCategoryList.innerHTML += `<li><button class="btn btn-options-element" id="categoryEl${i}">${categoryArray[i]}</button></li>`
-}
-
-for (let i = 0; i < categoryArray.length; i++) {
-    document.getElementById(`categoryEl${i}`).onclick = () => changeNewsCategory(i)
-}
-
-// console.log(newsCategoryList.innerHTML)
-getNews()
-
-async function getNews() { //API for getting the News and show what we want with a for loop for 3 news
-    switchNC.style.display = "block"
-    newsContainer.style.display = "block"
-    newsContainer.innerHTML = ""
-    let response = await fetch(`https://newsapi.org/v2/top-headlines?country=${countryNews}&category=${categoryNews}&apiKey=92392cdab3c54042ae71ad3a830e8afe`)
-    let data = await response.json().catch(err => console.error(err))
-
-    for (let i = 0; i <= 2; i++) {
-        let article = data.articles[i]
-        newsContainer.innerHTML += `
-        <h4 class= "news-headline"> <a href="${article.url}">${article.title}</a> </h4>
-        <p class= "news-author">${article.source.name}</p>
-        `
-    }
-}
-
-/* ==================
 Crypto
 ================== */
 const cryptoContainer = document.getElementById("crypto-container")
@@ -664,4 +471,27 @@ async function getCrypto() { //API for Crypto and showing the data we want
     `
 }
 
-console.log("version updated3")
+/* showing Crypto or not */
+const cryptoTitle = document.getElementById("crypto-title")
+const cryptoDiv = document.getElementById("crypto-div")
+if (localStorage.getItem("crypto TF") == null) { localStorage.setItem("crypto TF", "true" )}
+let showCryptoTF = localStorage.getItem("crypto TF")
+
+if (showCryptoTF === "true") { //Showing like was when i it was closed
+    cryptoDiv.style.display = "block" 
+} else if (showCryptoTF === "false") {
+    cryptoDiv.style.display = "none" 
+}
+
+function showCrypto() {
+    if (showCryptoTF === "true") {
+        cryptoDiv.style.display = "none" 
+        showCryptoTF = "false"
+    } else if(showCryptoTF === "false") {
+        cryptoDiv.style.display = "block"
+        showCryptoTF = "true"
+    }
+    localStorage.setItem("crypto TF", showCryptoTF)
+}
+
+cryptoTitle.addEventListener("click", showCrypto)
