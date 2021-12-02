@@ -28,6 +28,32 @@ if (imageQuery == null || imageQuery === "") { //search for an error in get the 
 }
 
 async function getImage() { //Getting the API for the image and showing it
+    let response = await fetch(`https://api.unsplash.com/photos/random?orientation=landscape&query=${imageQuery}/`, {
+        method : "GET",
+        headers : {
+            Authorization: "Client-ID HZuPX_r8Ori2KRfmOFwXbJ_zfyUip0OFLzWSkYbp8DU"
+        }
+    })
+    let data = await response.json().catch(err => {
+        console.error(err)
+        getImage2()
+    })
+    document.body.style.backgroundImage = `url("${data.urls.regular}")`
+    let color1 = parseInt(`${data.color.substring(1,3)}`, 16)
+    let color2 = parseInt(`${data.color.substring(3,5)}`, 16)
+    let color3 = parseInt(`${data.color.substring(5,7)}`, 16)
+    resultColor = parseInt((color1+color2+color3)/3)
+
+    if( resultColor > 180 && darkLightMode === "light" ||
+        resultColor <= 180 && darkLightMode === "dark") {
+            changeDarkLightMode()
+    } 
+
+    return data
+}
+
+async function getImage2() {
+    console.log("passed in scrimba api")
     let response = await fetch(`https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=${imageQuery}`)
     let data = await response.json().catch(err => console.error(err))
     document.body.style.backgroundImage = `url("${data.urls.regular}")`
@@ -35,14 +61,12 @@ async function getImage() { //Getting the API for the image and showing it
     let color2 = parseInt(`${data.color.substring(3,5)}`, 16)
     let color3 = parseInt(`${data.color.substring(5,7)}`, 16)
     resultColor = parseInt((color1+color2+color3)/3)
-    // console.log(data.color)
-    // console.log(resultColor)
+
     if( resultColor > 180 && darkLightMode === "light" ||
         resultColor <= 180 && darkLightMode === "dark") {
             changeDarkLightMode()
     } 
-    // console.log(data)
-    // console.log(data.user.links.html)
+
     return data
 }
 
@@ -68,13 +92,15 @@ function changeImageTopic() {
 /* Author */
 
 const authorContainer = document.getElementById("author-container")
-getImage().then(data => {
-    authorContainer.innerHTML = `
-    <p id="author-img"><span id="author-img-by">Ph: </span><a href="${data.user.links.html}">${data.user.name}</a></p>
-    <p id="author-unsplash">by <a href="https://unsplash.com/">Unsplash</a></p>
-    <p id="author-topic">Topic: ${imageQuery}</p>
-    `
-})
+// getImage().then(data => {
+//     authorContainer.innerHTML = `
+//     <p id="author-img"><span id="author-img-by">Ph: </span><a href="${data.user.links.html}">${data.user.name}</a></p>
+//     <p id="author-unsplash">by <a href="https://unsplash.com/">Unsplash</a></p>
+//     <p id="author-topic">Topic: ${imageQuery}</p>
+//     `
+// })
+
+getImage()
 
 /* ==================
 Dark Light Mode
