@@ -212,7 +212,6 @@ To do list
 ================== */
 
 const toDoTitle = document.getElementById("to-do-title")
-let showTodoTF = false
 const toDoContainer = document.getElementById("to-do-container")
 const toDoCollection = document.getElementById("to-do-collection")
 const toDoElements = document.getElementsByClassName("to-do-element")
@@ -293,21 +292,6 @@ function checkToDoEl(num) { //Modifiyng te array by adding or taking for the "ch
     showToDoList()
 }
 
-function showToDo() { //Showing the Todos clicking on the h3
-    if (showTodoTF === true) {
-        toDoContainer.style.display = "none"
-        toDoInputContainer.style.display = "none"
-        showTodoTF = false
-    } else {
-        toDoContainer.style.display = "flex"
-        toDoContainer.style.flexDirection = "column"
-        btnTDAdd.style.display = "block"
-        showTodoTF = true
-    }
-}
-
-toDoTitle.addEventListener("click", showToDo)
-
 btnTDAdd.addEventListener("click", function () { //Displaying the input when clicked the plus button
     toDoInputContainer.style.display = "block"
     toDoInput.focus()
@@ -327,6 +311,35 @@ toDoInput.addEventListener("keyup", function (e) {
         toDoInput.value = ""
     }
 })
+
+if(localStorage.getItem("showTodoTF") === null) {localStorage.setItem("showTodoTF", "false")}
+let showTodoTF = localStorage.getItem("showTodoTF")
+
+
+function showToDo() { //Showing the Todos clicking on the h3
+    if (showTodoTF === "true") {
+        toDoContainer.style.display = "none"
+        toDoInputContainer.style.display = "none"
+        showTodoTF = "false"
+    } else if (showTodoTF === "false") {
+        toDoContainer.style.display = "flex"
+        toDoContainer.style.flexDirection = "column"
+        btnTDAdd.style.display = "block"
+        showTodoTF = "true"
+    }
+    localStorage.setItem("showTodoTF", showTodoTF)
+}
+
+if (showTodoTF === "false") { 
+    toDoContainer.style.display = "none"
+    toDoInputContainer.style.display = "none"
+} else if (showTodoTF === "true"){
+    toDoContainer.style.display = "flex"
+    toDoContainer.style.flexDirection = "column"
+    btnTDAdd.style.display = "block"
+}
+
+toDoTitle.addEventListener("click", showToDo)
 
 /* ==================
 Weather 
@@ -402,7 +415,7 @@ async function weatherWidget() { //API to get the weather and show what we want
 /* Showing weather or not */
 const weatherTitle = document.getElementById("weather-title")
 const weatherContainer = document.getElementById("weather-container")
-if (localStorage.getItem("weather TF") == null) { localStorage.setItem("weather TF", "true" )}
+if (localStorage.getItem("weather TF") == null) { localStorage.setItem("weather TF", "true")}
 let showWeatherTF = localStorage.getItem("weather TF")
 
 if (showWeatherTF === "true") { //Showing like was when i it was closed
