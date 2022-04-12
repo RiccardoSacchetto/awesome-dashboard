@@ -92,13 +92,16 @@ function changeImageTopic() {
 /* Author */
 
 const authorContainer = document.getElementById("author-container")
-// getImage().then(data => {
-//     authorContainer.innerHTML = `
-//     <p id="author-img"><span id="author-img-by">Ph: </span><a href="${data.user.links.html}">${data.user.name}</a></p>
-//     <p id="author-unsplash">by <a href="https://unsplash.com/">Unsplash</a></p>
-//     <p id="author-topic">Topic: ${imageQuery}</p>
-//     `
-// })
+getImage().then(data => {
+    authorContainer.innerHTML = `
+    <p id="author-img"><span id="author-img-by">Ph: </span><a href="${data.user.links.html}?utm_source=awesome_dashboard&utm_medium=chrome_extension">${data.user.name}</a></p>
+    <p id="author-unsplash">by <a href="https://unsplash.com/?utm_source=awesome_dashboard&utm_medium=chrome_extension">Unsplash</a></p>
+    <p id="author-topic">Topic: ${imageQuery}</p>
+    `
+})
+
+// Photo by <a href="https://unsplash.com/@anniespratt?utm_source=your_app_name&utm_medium=referral">Annie Spratt</a> on <a href="https://unsplash.com/?utm_source=your_app_name&utm_medium=referral">Unsplash</a>
+
 
 getImage()
 
