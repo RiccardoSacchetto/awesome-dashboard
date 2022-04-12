@@ -28,6 +28,32 @@ if (imageQuery == null || imageQuery === "") { //search for an error in get the 
 }
 
 async function getImage() { //Getting the API for the image and showing it
+    let response = await fetch(`https://api.unsplash.com/photos/random?orientation=landscape&query=${imageQuery}/`, {
+        method : "GET",
+        headers : {
+            Authorization: "Client-ID HZuPX_r8Ori2KRfmOFwXbJ_zfyUip0OFLzWSkYbp8DU"
+        }
+    })
+    let data = await response.json().catch(err => {
+        console.error(err)
+        getImage2()
+    })
+    document.body.style.backgroundImage = `url("${data.urls.regular}")`
+    let color1 = parseInt(`${data.color.substring(1,3)}`, 16)
+    let color2 = parseInt(`${data.color.substring(3,5)}`, 16)
+    let color3 = parseInt(`${data.color.substring(5,7)}`, 16)
+    resultColor = parseInt((color1+color2+color3)/3)
+
+    if( resultColor > 180 && darkLightMode === "light" ||
+        resultColor <= 180 && darkLightMode === "dark") {
+            changeDarkLightMode()
+    } 
+
+    return data
+}
+
+async function getImage2() {
+    console.log("passed in scrimba api")
     let response = await fetch(`https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=${imageQuery}`)
     let data = await response.json().catch(err => console.error(err))
     document.body.style.backgroundImage = `url("${data.urls.regular}")`
@@ -35,14 +61,12 @@ async function getImage() { //Getting the API for the image and showing it
     let color2 = parseInt(`${data.color.substring(3,5)}`, 16)
     let color3 = parseInt(`${data.color.substring(5,7)}`, 16)
     resultColor = parseInt((color1+color2+color3)/3)
-    // console.log(data.color)
-    // console.log(resultColor)
+
     if( resultColor > 180 && darkLightMode === "light" ||
         resultColor <= 180 && darkLightMode === "dark") {
             changeDarkLightMode()
     } 
-    // console.log(data)
-    // console.log(data.user.links.html)
+
     return data
 }
 
@@ -70,11 +94,16 @@ function changeImageTopic() {
 const authorContainer = document.getElementById("author-container")
 getImage().then(data => {
     authorContainer.innerHTML = `
-    <p id="author-img"><span id="author-img-by">Ph: </span><a href="${data.user.links.html}">${data.user.name}</a></p>
-    <p id="author-unsplash">by <a href="https://unsplash.com/">Unsplash</a></p>
+    <p id="author-img"><span id="author-img-by">Ph: </span><a href="${data.user.links.html}?utm_source=awesome_dashboard&utm_medium=chrome_extension">${data.user.name}</a></p>
+    <p id="author-unsplash">by <a href="https://unsplash.com/?utm_source=awesome_dashboard&utm_medium=chrome_extension">Unsplash</a></p>
     <p id="author-topic">Topic: ${imageQuery}</p>
     `
 })
+
+// Photo by <a href="https://unsplash.com/@anniespratt?utm_source=your_app_name&utm_medium=referral">Annie Spratt</a> on <a href="https://unsplash.com/?utm_source=your_app_name&utm_medium=referral">Unsplash</a>
+
+
+getImage()
 
 /* ==================
 Dark Light Mode
@@ -212,7 +241,6 @@ To do list
 ================== */
 
 const toDoTitle = document.getElementById("to-do-title")
-let showTodoTF = false
 const toDoContainer = document.getElementById("to-do-container")
 const toDoCollection = document.getElementById("to-do-collection")
 const toDoElements = document.getElementsByClassName("to-do-element")
@@ -293,21 +321,6 @@ function checkToDoEl(num) { //Modifiyng te array by adding or taking for the "ch
     showToDoList()
 }
 
-function showToDo() { //Showing the Todos clicking on the h3
-    if (showTodoTF === true) {
-        toDoContainer.style.display = "none"
-        toDoInputContainer.style.display = "none"
-        showTodoTF = false
-    } else {
-        toDoContainer.style.display = "flex"
-        toDoContainer.style.flexDirection = "column"
-        btnTDAdd.style.display = "block"
-        showTodoTF = true
-    }
-}
-
-toDoTitle.addEventListener("click", showToDo)
-
 btnTDAdd.addEventListener("click", function () { //Displaying the input when clicked the plus button
     toDoInputContainer.style.display = "block"
     toDoInput.focus()
@@ -327,6 +340,35 @@ toDoInput.addEventListener("keyup", function (e) {
         toDoInput.value = ""
     }
 })
+
+if(localStorage.getItem("showTodoTF") === null) {localStorage.setItem("showTodoTF", "false")}
+let showTodoTF = localStorage.getItem("showTodoTF")
+
+
+function showToDo() { //Showing the Todos clicking on the h3
+    if (showTodoTF === "true") {
+        toDoContainer.style.display = "none"
+        toDoInputContainer.style.display = "none"
+        showTodoTF = "false"
+    } else if (showTodoTF === "false") {
+        toDoContainer.style.display = "flex"
+        toDoContainer.style.flexDirection = "column"
+        btnTDAdd.style.display = "block"
+        showTodoTF = "true"
+    }
+    localStorage.setItem("showTodoTF", showTodoTF)
+}
+
+if (showTodoTF === "false") { 
+    toDoContainer.style.display = "none"
+    toDoInputContainer.style.display = "none"
+} else if (showTodoTF === "true"){
+    toDoContainer.style.display = "flex"
+    toDoContainer.style.flexDirection = "column"
+    btnTDAdd.style.display = "block"
+}
+
+toDoTitle.addEventListener("click", showToDo)
 
 /* ==================
 Weather 
@@ -402,7 +444,7 @@ async function weatherWidget() { //API to get the weather and show what we want
 /* Showing weather or not */
 const weatherTitle = document.getElementById("weather-title")
 const weatherContainer = document.getElementById("weather-container")
-if (localStorage.getItem("weather TF") == null) { localStorage.setItem("weather TF", "true" )}
+if (localStorage.getItem("weather TF") == null) { localStorage.setItem("weather TF", "true")}
 let showWeatherTF = localStorage.getItem("weather TF")
 
 if (showWeatherTF === "true") { //Showing like was when i it was closed
