@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "description": "An awesome dashboard for the new page on your browser",
     "action": {
-        "default_icon": "dashboard.png"
+        "default_icon": "dashboard-grid.png"
     },
     "chrome_url_overrides": {
         "newtab": "index.html"
